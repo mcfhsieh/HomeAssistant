@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/taskViewFragment">
+
+    <fragment
+        android:id="@+id/taskViewFragment"
+        android:name="com.hsiehavey.homeassistant.Fragments.TaskViewFragment"
+        android:label="task_list_fragment"
+        tools:layout="@layout/task_list_fragment" >
+
+        <action
+            android:id="@+id/action_taskViewFragment_to_editTaskFragment"
+            app:destination="@id/editTaskFragment"
+            app:popUpTo="@+id/taskViewFragment" />
+        <action
+            android:id="@+id/action_taskViewFragment_to_newTaskFragment"
+            app:destination="@+id/newTaskFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newTaskFragment"
+        android:name="com.hsiehavey.homeassistant.Fragments.NewTaskFragment"
+        android:label="NewTaskFragment" >
+        <argument
+            android:name="taskId"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/editTaskFragment"
+        android:name="com.hsiehavey.homeassistant.Fragments.EditTaskFragment"
+        android:label="EditTaskFragment" >
+        <argument
+            android:name="taskId"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+</navigation>
