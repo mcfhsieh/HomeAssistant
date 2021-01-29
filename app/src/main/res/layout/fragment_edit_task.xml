@@ -1,27 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="viewModel"
             type="com.hsiehavey.homeassistant.TaskViewModel" />
     </data>
 
-
-    <FrameLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".Fragments.EditTaskFragment">
+        android:layout_height="match_parent">
 
-
-        <EditText
-            android:id="@+id/task_edit_input"
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size"
-            android:layout_margin="@dimen/text_margin"
-             />
+            android:background="@android:color/transparent"
+            android:id="@+id/top_appbar"
+            app:elevation="0dp"
+            app:layout_insetEdge="top">
 
-    </FrameLayout>
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent"
+                app:menu="@menu/top_appbar" />
+<!--                app:menu="@menu/app_bar_menu"-->
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".fragments.EditTaskFragment"
+            app:layout_dodgeInsetEdges="top">
+
+
+            <EditText
+                android:id="@+id/task_edit_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:imeOptions="actionDone"
+                android:textSize="@dimen/text_size" />
+        </FrameLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 
 </layout>

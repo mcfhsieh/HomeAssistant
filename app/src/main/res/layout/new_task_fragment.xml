@@ -1,25 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
 
-    <TextView
-        android:id="@+id/new_task_text"
+    tools:context=".MainActivity">
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_size"
-        android:text="New Task"
-        android:layout_margin="@dimen/text_margin"
-        />
+        >
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/task_type_button"
-        style="@style/Widget.MaterialComponents.Button.Icon"
-        android:layout_height="40dp"
-        android:layout_width="40dp"
-        android:layout_marginStart="25dp"
-        app:icon="@drawable/ic_date"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+            app:behavior_peekHeight="300dp"
+            android:id="@+id/bottom_sheet"
+            android:orientation="vertical">
 
-</LinearLayout>
+            <EditText
+                android:id="@+id/new_task_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:hint="New Task"
+                android:textSize="@dimen/text_size"
+                android:inputType=
+                    "textCapSentences|textAutoCorrect"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/task_submit_button"
+                style="@style/Widget.MaterialComponents.Button.Icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="25dp"
+                app:backgroundTint="@android:color/holo_orange_dark"
+                app:icon="@drawable/ic_done_black_24dp" />
+        </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

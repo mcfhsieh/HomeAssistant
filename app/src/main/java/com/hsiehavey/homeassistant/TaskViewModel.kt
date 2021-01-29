@@ -4,7 +4,6 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -19,15 +18,6 @@ class TaskViewModel(application: Application): AndroidViewModel(application){
 
     val allTasks: LiveData<List<TaskData>>
 
-    private var taskId = MutableLiveData<Int>()
-
-    fun setId(input:Int){
-        taskId.value = input
-    }
-    fun getId(): LiveData<Int>{
-        return taskId
-    }
-
     private val coroutineContext: CoroutineContext
         get() = parentJob + Dispatchers.Main
 
@@ -39,9 +29,15 @@ class TaskViewModel(application: Application): AndroidViewModel(application){
         allTasks = repository.allTasks
     }
 
+
     fun insert(task:TaskData) = scope.launch(Dispatchers.IO){
         repository.insert(task)
-        Log.d("VM", "insert called")
+        println("insert called")
+    }
+
+    fun getTask(id: Int) = scope.launch(Dispatchers.IO) {
+        repository.getTask(id)
+        println("getTask called")
     }
 
     fun update(task:TaskData) = scope.launch(Dispatchers.IO){
@@ -63,4 +59,6 @@ class TaskViewModel(application: Application): AndroidViewModel(application){
         parentJob.cancel()
         Log.d("VM", "onCleared called")
     }
+
+
 }

@@ -36,6 +36,7 @@ abstract class TaskRoomDatabase : RoomDatabase(){
                 instance
             }
         }
+
         private class TaskDatabaseCallback(
             private val scope: CoroutineScope
         ): RoomDatabase.Callback(){
@@ -44,7 +45,7 @@ abstract class TaskRoomDatabase : RoomDatabase(){
                 super.onOpen(db)
                 INSTANCE?.let{database ->
                     scope.launch(Dispatchers.IO){
-                        populateDatabase(database.taskDao())
+                        //populateDatabase(database.taskDao())
                     }
                 }
             }

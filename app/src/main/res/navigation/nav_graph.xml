@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/taskViewFragment"
-        android:name="com.hsiehavey.homeassistant.Fragments.TaskViewFragment"
+        android:name="com.hsiehavey.homeassistant.fragments.TaskViewFragment"
         android:label="task_list_fragment"
         tools:layout="@layout/task_list_fragment" >
 
@@ -17,11 +17,12 @@
             app:popUpTo="@+id/taskViewFragment" />
         <action
             android:id="@+id/action_taskViewFragment_to_newTaskFragment"
-            app:destination="@+id/newTaskFragment" />
+            app:destination="@+id/newTaskFragment"
+            app:popUpTo="@+id/taskViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/newTaskFragment"
-        android:name="com.hsiehavey.homeassistant.Fragments.NewTaskFragment"
+        android:name="com.hsiehavey.homeassistant.fragments.NewTaskFragment"
         android:label="NewTaskFragment" >
         <argument
             android:name="taskId"
@@ -30,11 +31,16 @@
     </fragment>
     <fragment
         android:id="@+id/editTaskFragment"
-        android:name="com.hsiehavey.homeassistant.Fragments.EditTaskFragment"
+        android:name="com.hsiehavey.homeassistant.fragments.EditTaskFragment"
         android:label="EditTaskFragment" >
         <argument
             android:name="taskId"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_editTaskFragment_to_taskViewFragment"
+            app:destination="@id/taskViewFragment"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popUpTo="@id/editTaskFragment" />
     </fragment>
 </navigation>

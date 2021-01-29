@@ -1,32 +1,41 @@
 package com.hsiehavey.homeassistant
 
 
+import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.hsiehavey.homeassistant.databinding.TaskListViewBinding
+import com.hsiehavey.homeassistant.fragments.TaskViewFragment
 
 
-class TaskAdapter(private val clickListener:TaskDataListener): ListAdapter<TaskData, TaskAdapter.ViewHolder>(TaskDataDiffCallback()) {
+class TaskAdapter(private val clickListener: TaskDataListener) :
+    ListAdapter<TaskData, TaskAdapter.ViewHolder>(TaskDataDiffCallback()) {
 
+    var onItemLongPress: ((TaskData) -> Unit)? = null
 
-    override fun onBindViewHolder(holder:ViewHolder, position: Int) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        Log.d("Adapter", "onCreateViewHolder called")
+        return ViewHolder.from(parent).apply {
+            onItemLongPress = { taskData ->
+                this@TaskAdapter.onItemLongPress?.invoke(taskData)
+            }
+        }
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position)!!, clickListener)
         Log.d("Adapter", "onBindViewHolder called")
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        Log.d("Adapter", "onCreateViewHolder called")
-        return ViewHolder.from(parent)
-
-    }
-
-
     class ViewHolder private constructor(private val binding: TaskListViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        var onItemLongPress: ((TaskData) -> Unit)? = null
 
         fun bind(item: TaskData, clickListener: TaskDataListener) {
             Log.d("Adapter", "bind function called")
@@ -35,18 +44,24 @@ class TaskAdapter(private val clickListener:TaskDataListener): ListAdapter<TaskD
             binding.taskTypeTextView.text = item.taskType
             binding.clickListener = clickListener
             binding.executePendingBindings()
-
+            //handling longpress on recyclerview
+            binding.cardView.setOnLongClickListener {
+                onItemLongPress?.invoke(item)
+                return@setOnLongClickListener true
+            }
         }
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = TaskListViewBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
+
             }
         }
     }
 }
-class TaskDataDiffCallback: DiffUtil.ItemCallback<TaskData>(){
+
+class TaskDataDiffCallback : DiffUtil.ItemCallback<TaskData>() {
     override fun areItemsTheSame(oldItem: TaskData, newItem: TaskData): Boolean {
         return oldItem.id == newItem.id
     }
@@ -57,9 +72,17 @@ class TaskDataDiffCallback: DiffUtil.ItemCallback<TaskData>(){
 
 }
 
-class TaskDataListener(val clickListener: (taskId:Int)-> Unit ){
-    fun onClick (task: TaskData) = clickListener(task.id)
+class TaskDataListener(val clickListener: (taskId: Int) -> Unit) {
+    fun onClick(task: TaskData) = clickListener(task.id)
 }
+
+
+
+
+
+
+
+
 
 
 

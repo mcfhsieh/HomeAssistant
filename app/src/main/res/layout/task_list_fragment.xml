@@ -1,52 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
+    <!--<data>
         <variable
             name="taskViewModel"
             type="com.hsiehavey.homeassistant.TaskViewModel" />
-    </data>
+    </data>-->
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
-    <FrameLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Fragments.TaskViewFragment"
-        >
+        android:background="@color/greyBackground">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mRecyclerView"
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/darker_gray"
-            android:clipToPadding="false"
-            android:padding="4dp"
-            android:scrollbars="vertical"
-            tools:listitem="@layout/task_list_view" />
+            android:layout_height="wrap_content"
+            android:background="@color/greyBackground"
+            android:paddingBottom="35dp"
+            tools:context=".Fragments.TaskViewFragment">
 
-    </FrameLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/greyBackground"
+                android:clipToPadding="true"
+                android:padding="4dp"
+                android:scrollbars="vertical"
+                tools:listitem="@layout/task_list_view" />
+        </FrameLayout>
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBar"
-        style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:fabAlignmentMode="center"
-        app:navigationIcon="@drawable/app_bar_menu_white_24dp" />
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottomAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:backgroundTint="@color/greyBackground"
+            app:hideOnScroll="false"
+            app:navigationContentDescription="@string/nav_menu"
+            app:navigationIcon="@drawable/app_bar_menu_white_24dp" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/new_task_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_app_bar_button_24dp"
-        app:layout_anchor="@id/bottomAppBar" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/new_task_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity=""
+            android:src="@drawable/ic_add_circle_black_24dp"
+            app:backgroundTint="#69F0AE"
+            app:layout_anchor="@id/bottomAppBar"
+            app:rippleColor="#448AFF" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
